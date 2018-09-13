@@ -1,0 +1,9 @@
+.lightbox-enter-active,
+.lightbox-leave-active {
+    @include transition;
+}
+
+.lightbox-enter,
+.lightbox-leave-to {
+    opacity: 0;
+}

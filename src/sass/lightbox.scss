@@ -1,0 +1,290 @@
+.modal {
+    &.is-lightbox {
+        .modal-content {
+            overflow: visible;
+        }
+
+        .modal-close {
+            z-index: 2;
+            background-color: rgba($black, 0.2);
+        }
+            
+        @include touch {
+            .modal-content {
+                margin: 0;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                max-height: none;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+
+            @media screen and (orientation: portrait) {
+                .modal-close {
+                    display: none;
+                }
+            }
+        }
+
+        @include desktop {
+            .modal-content {
+                width: 90vw;
+                max-width: calc(100vw - 160px);
+            }
+        }
+
+        @include widescreen {
+            .modal-content {
+                max-width: $desktop;
+            }
+        }
+    }
+}
+
+.lightbox-container {
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    position: relative;
+    justify-content: center;
+}
+
+.lightbox-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.lightbox-image-overlay {
+    text-align: center;
+}
+
+.lightbox-image-title {
+    font-size: $size-5;
+}
+
+.lightbox-navigation {
+    &:focus {
+        outline: none;
+    }
+
+    &:before {
+        top: 50%;
+        content: '';
+        position: absolute;
+        transform: translateY(-50%) rotate(45deg);
+    }
+
+    &.is-previous {
+        &:before {
+            border-left: 2px solid $grey-darker;
+            border-bottom: 2px solid $grey-darker;
+        }
+    }
+
+    &.is-next {
+        &:before {
+            border-top: 2px solid $grey-darker;
+            border-right: 2px solid $grey-darker;
+        }
+    }
+}
+
+@include touch {
+    .lightbox-container {
+        display: flex;
+        align-items: center;
+    }
+
+    .lightbox-image-holder {
+        display: flex;
+        flex-direction: column;            
+    }
+    
+    .lightbox-image-overlay {
+        padding: 1rem;
+        background-color: $white;
+    }
+
+    .lightbox-image-title {
+        flex-grow: 1;
+        max-height: 45px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .lightbox-image-caption {
+        display: none;
+    }
+
+    .lightbox-navigation-holder {
+        display: flex;
+        min-height: 50px;
+        background-color: $white;
+
+        a {
+            padding: 0 2rem;
+
+            &:focus {
+                outline: none;
+            }
+
+            &:not(:last-child) {
+                border-right: 1px solid $grey-light;
+            }
+
+            &.lightbox-navigation {
+                width: 100%;
+                position: relative;
+
+                &:before {
+                    left: 50%;
+                    width: 10px;
+                    height: 10px;
+                }
+
+                &.is-disabled {
+                    &:before {
+                        opacity: .2;
+                    }
+                }
+            }
+
+            &.is-close {
+                display: flex;
+                align-items: center;
+
+                .delete {
+                    background-color: transparent;
+
+                    &:before,
+                    &:after {
+                        background-color: $grey-darker;
+                    }
+                }
+            }
+        }
+    }
+    
+    @media screen and (orientation: portrait) {
+        .lightbox-container {
+            display: flex;
+            align-items: center;
+            max-height: calc(100vh - 50px);
+
+            img {
+                max-height: calc(100vh - 95px);
+            }
+        }
+    }
+
+    @media screen and (orientation: landscape) {
+        .lightbox-container {
+            min-height: 100vh;
+            align-items: center;
+
+            img {
+                max-height: calc(100vh - 45px);
+            }
+        }
+
+        .lightbox-navigation-holder {
+            display: none;
+        }
+    }
+}
+
+@include desktop {
+    .lightbox-container {
+        max-height: calc(100vh - 40px);
+    }
+
+    .lightbox-image-holder {
+        overflow: hidden;
+        position: relative;   
+    }
+
+    .lightbox-image {
+        bottom: 0;
+        z-index: 1;
+        position: relative;
+        max-height: calc(100vh - 80px);
+    }
+
+    .lightbox-image-overlay {
+        z-index: 2;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        color: $white;
+        padding: 2rem 3rem;
+        position: absolute;
+        background-color: rgba($black, 0.75);
+    }
+
+    .lightbox-image-title {
+        margin-bottom: 0.5rem;
+    }
+    
+    .lightbox-navigation-holder {
+        .lightbox-navigation {
+            z-index: 3;
+            top: 0;
+            bottom: 0;
+            width: 50%;
+            user-select: none;
+            position: absolute;
+            -webkit-tap-highlight-color: rgba($black, 0);
+
+            &:focus {
+                outline: none;
+            }
+    
+            &:before {
+                width: 40px;
+                height: 40px;
+                border-width: 3px;
+                border-color: $white;
+            }
+
+            &.is-previous {
+                left: -50px;
+
+                &:before {
+                    left: 15px;
+                }
+            }
+            
+            &.is-next {
+                right: -50px;
+
+                &:before {
+                    right: 15px;
+                }
+            }
+
+            &.is-disabled {
+                display: none;
+            }
+        }
+
+        .is-close {
+            display: none;
+        }
+    }
+}
+
+@include widescreen {
+    .lightbox-navigation {
+        &.is-previous {
+            left: -80px;
+        }
+        
+        &.is-next {
+            right: -80px;
+        }
+    }
+}
