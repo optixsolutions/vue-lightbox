@@ -25,7 +25,7 @@ module.exports = {
 //     hints: false
 //   },
 //   devtool: '#eval-source-map'
-}
+};
 
 // test specific setups
 if (process.env.NODE_ENV === 'test') {

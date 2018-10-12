@@ -27,7 +27,7 @@ export default function install(Vue) {
     }
 
     Vue.use(VueTouch, { name: 'lightbox-touch' });
-    Vue.component('lightbox', require('./components/Lightbox'));
+    Vue.component('lightbox', require('./components/Lightbox.vue'));
 
     Object.defineProperty(Vue.prototype, '$lightbox', {
         get() {
